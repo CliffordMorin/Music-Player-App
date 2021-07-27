@@ -67,7 +67,7 @@ function chillHop() {
       cover:
         "https://chillhop.com/wp-content/uploads/2021/05/1245c0271290a3196328c0cf4aaa910cd873dfe7-1024x1024.jpg",
       artist: "mommy, Sleepy Fish",
-      audio: "https://mp3.chillhop.com",
+      audio: "https://mp3.chillhop.com/serve.php/?mp3=19062",
       color: ["#598CCE", "#EDD6D2"],
       id: uuidv4(),
       active: false,

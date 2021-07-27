@@ -1,16 +1,16 @@
 .player {
-  min-height: 60vh;
+  min-height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .time-control {
   width: 50%;
   display: flex;
   input {
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 1rem 0rem;
   }
   p {
     padding: 1rem;
