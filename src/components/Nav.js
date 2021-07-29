@@ -1,5 +1,5 @@
 import React from 'react';
-import { fontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 
 const Nav = ({ setLibraryStatus, libraryStatus }) => {
@@ -8,7 +8,7 @@ const Nav = ({ setLibraryStatus, libraryStatus }) => {
 			<h1>Waves</h1>
 			<button onClick={() => setLibraryStatus(!libraryStatus)}>
 				Library
-				<fontAwesomeIcon icon={faMusic} />
+				<FontAwesomeIcon icon={faMusic} />
 			</button>
 		</nav>
 	);
