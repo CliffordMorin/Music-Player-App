@@ -1,8 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faAngleLeft, faAngleRight, faPause } from '@fortawesome/free-solid-svg-icons';
 
-const Player = ({ currentSong, isPlaying, setIsPlaying, audioRef, setSongInfo, songInfo, songs, setCurrentSong }) => {
+const Player = ({
+	currentSong,
+	isPlaying,
+	setIsPlaying,
+	audioRef,
+	setSongInfo,
+	songInfo,
+	songs,
+	setCurrentSong,
+	setSongs
+}) => {
+	//useEffect
+	useEffect(
+		() => {
+			const newSongs = songs.map((song) => {
+				if (song.id === currentSong.id) {
+					return {
+						...song,
+						active: true
+					};
+				} else {
+					return {
+						...song,
+						active: false
+					};
+				}
+			});
+			setSongs(newSongs);
+			if (isPlaying) {
+				const playPromise = audioRef.current.play();
+				if (playPromise !== undefined) {
+					playPromise.then((audio) => {
+						audioRef.current.play();
+					});
+				}
+			}
+		},
+		[ currentSong ]
+	);
 	//event handlers
 	const playSongHandler = () => {
 		if (isPlaying) {
@@ -22,7 +60,7 @@ const Player = ({ currentSong, isPlaying, setIsPlaying, audioRef, setSongInfo, s
 		setSongInfo({ ...songInfo, currentTime: e.target.value });
 	};
 	const skipTrackHandler = (direction) => {
-		let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
+		let currentIndex = songs.findIndex((song) => song.active);
 		if (direction === 'skip-forward') {
 			setCurrentSong(songs[(currentIndex + 1) % songs.length]);
 		}
