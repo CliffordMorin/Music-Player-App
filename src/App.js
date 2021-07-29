@@ -6,8 +6,8 @@ import Library from './components/Library';
 import Nav from './components/Nav';
 //Import Styles
 import './styles/app.scss';
-//Import Util
-import data from './util';
+//Import Data
+import data from './data';
 
 function App() {
 	//Ref
