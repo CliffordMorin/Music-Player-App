@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faAngleLeft, faAngleRight, faPause } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,27 +13,24 @@ const Player = ({
 	setCurrentSong,
 	setSongs
 }) => {
-	//useEffect
-	useEffect(
-		() => {
-			const newSongs = songs.map((song) => {
-				if (song.id === currentSong.id) {
-					return {
-						...song,
-						active: true
-					};
-				} else {
-					return {
-						...song,
-						active: false
-					};
-				}
-			});
-			setSongs(newSongs);
-			if (isPlaying) audioRef.current.play();
-		},
-		[ currentSong ]
-	);
+	const activeLibraryHandler = (nextPrev) => {
+		const newSongs = songs.map((song) => {
+			if (song.id === nextPrev.id) {
+				return {
+					...song,
+					active: true
+				};
+			} else {
+				return {
+					...song,
+					active: false
+				};
+			}
+		});
+		setSongs(newSongs);
+		if (isPlaying) audioRef.current.play();
+		console.log('hey from the bro');
+	};
 	//event handlers
 	const playSongHandler = () => {
 		if (isPlaying) {
@@ -56,18 +53,59 @@ const Player = ({
 		let currentIndex = songs.findIndex((song) => song.active);
 		if (direction === 'skip-forward') {
 			await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+			activeLibraryHandler(songs[(currentIndex + 1) % songs.length]);
 		}
 
 		if (direction === 'skip-back') {
 			if ((currentIndex - 1) % songs.length === -1) {
 				setCurrentSong(songs[songs.length - 1]);
+				activeLibraryHandler(songs[songs.length - 1]);
 				if (isPlaying) audioRef.current.play();
 				return;
 			}
 			setCurrentSong(songs[(currentIndex - 1) % songs.length]);
+			activeLibraryHandler(songs[(currentIndex - 1) % songs.length]);
 		}
 		if (isPlaying) audioRef.current.play();
 	};
+
+	//Trying to get key press handler to work
+
+	// function useKey(key) {
+	// 	const [ pressed, setPressed ] = useState(false);
+	// 	const match = (e) => e.key.toLowerCase();
+	// 	const press = (e) => {
+	// 		if (match(e)) {
+	// 			setPressed(true);
+	// 		} else {
+	// 			setPressed(false);
+	// 		}
+	// 	};
+
+	// 	useEffect(
+	// 		() => {
+	// 			window.addEventListener('keypress', press);
+	// 			return () => {
+	// 				window.removeEventListener('keypress', press);
+	// 			};
+	// 		},
+	// 		[ key ]
+	// 	);
+	// 	return pressed;
+
+	// 	if (isPlaying && e.keyCode === 'Space') {
+	// 		console.log('play this please');
+	// 		audioRef.current.pause();
+	// 		setIsPlaying(!isPlaying);
+	// 	} else if (!isPlaying && e.keyCode === 'Space') {
+	// 		console.log('log this please');
+	// 		audioRef.current.play();
+	// 		setIsPlaying(!isPlaying);
+	// 	}
+	// }
+
+	// const space = useKey('space');
+
 	//Add styles for animation
 	const trackAnim = {
 		transform: `translateX(${songInfo.animationPercentage}%)`
@@ -103,6 +141,7 @@ const Player = ({
 				/>
 				<FontAwesomeIcon
 					onClick={playSongHandler}
+					// useKey={playSongHandler}
 					className="play"
 					size="2x"
 					icon={isPlaying ? faPause : faPlay}
