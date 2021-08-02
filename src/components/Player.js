@@ -71,6 +71,12 @@ const Player = ({
 
 	//Trying to get key press handler to work
 
+	document.body.onkeyup = function(e) {
+		if (e.keyCode === 32) {
+			playSongHandler();
+		}
+	};
+
 	// function useKey(key) {
 	// 	const [ pressed, setPressed ] = useState(false);
 	// 	const match = (e) => e.key.toLowerCase();
