@@ -26,6 +26,18 @@
 	}
 	&:hover {
 		background: rgb(162, 222, 222);
+		img {
+			width: 33%;
+			transition: all .75s ease;
+		}
+		h3 {
+			font-size: 1.1rem;
+			transition: all .7s ease;
+		}
+		h4 {
+			font-size: 0.8rem;
+			transition: all .7s ease;
+		}
 	}
 }
 

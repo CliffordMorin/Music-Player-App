@@ -74,6 +74,10 @@ const Player = ({
 	document.body.onkeyup = function(e) {
 		if (e.keyCode === 32) {
 			playSongHandler();
+		} else if (e.keyCode === 39) {
+			skipTrackHandler('skip-forward');
+		} else if (e.keyCode === 37) {
+			skipTrackHandler('skip-back');
 		}
 	};
 
